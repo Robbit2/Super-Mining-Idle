@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Mining Idle</title>
+    <link href="../style/index.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <aside class="left">
+        <!--Basic Player Stats-->
+        <section>
+            <span id="player-name">[ Player Name ]</span><br>
+            <span id="player-level">[ Player Level ]</span><br>
+            <label for="player-lvl-bar" id="player-lvl-txt"></label>
+            <meter id="player-lvl-bar" value="0" max="1000" min="0"></meter>
+        </section>
+        <section>
+            <span id="player-dollars">Money: [ $0 ]</span><br>
+            <span id="player-credits">Credits: [ Ξ0 ]</span>
+        </section>
+        <section class="inventory" id="inventory">
+            <b>Inventory</b><br><br>
+            <span id="inventory-stone">∅0</span>
+            <span id="inventory-iron">⋒0</span>
+            <span id="inventory-silver">〥0</span>
+            <span id="inventory-gold">♀0</span>
+            <span id="inventory-titanium">∐0</span>
+            <span id="inventory-oil">♨0</span>
+            <span id="inventory-moon-cheese">∆0</span>
+            <span id="inventory-moon-cheese-fuel">⊵0</span>
+        </section>
+    </aside>
+    <main class="right">
+        <section class="one">
+            <section class="mine-gui">
+                <button class="square" onclick="mine()">MINE</button>
+                <div style="display:inline-block;width:75%;">
+                    <select class="mine-select">
+                        <option value="stone">∅ | Stone</option>
+                        <option value="iron">⋒ | Iron</option>
+                        <option value="silver">〥 | Silver</option>
+                        <option value="gold">♀ | Gold</option>
+                        <option value="titanium">∐ | Titanium</option>
+                        <option value="moon_cheese">∆ | Moon Cheese</option>
+                    </select><br>
+                    <meter min="0" max="100" value="0" id="mine-progress-bar"></meter>
+                </div>
+            </section>
+            <section class="smeltery-gui">
+                <span>SMELTERY</span>
+
+            </section>
+        </section>
+        <section class="two"></section>
+        <section class="three"></section>
+        <section class="four"></section>
+    </main>
+    <script type="module">
+        
+    </script>
+    <script src="//cdn.rawgit.com/erosson/swarm-numberformat/v0.4.0/dist/swarm-numberformat.min.js"></script>
+    <script src="../scripts/refs.js"></script>
+    <script src="../scripts/utils.js"></script>
+    <script src="../scripts/index.js"></script>
+</body>
+</html>
