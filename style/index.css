@@ -70,3 +70,10 @@ button.square {
 .mine-progress-bar {
     width:50%;
 }
+
+.mine-alert {
+    background:lightgrey;
+    padding:2px 8px 2px 8px;
+    border-radius: 50px;
+    opacity:1;
+}

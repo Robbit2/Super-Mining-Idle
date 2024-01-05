@@ -89,6 +89,12 @@ const mine = () => {
         const mineOption = document.querySelector(".mine-select");
         const mineBar = document.querySelector("#mine-progress-bar");
         const mineTime = mineTimes[mineOption.value];
+        const mineLabel = document.querySelector("#mine-progress-label");
+        const mineAlert = document.querySelector(".mine-alert");
+
+        const _mineOption = JSON.parse(JSON.stringify(mineOption.value));
+
+        mineLabel.innerHTML = `${numberformat.format(mineTime, {sigfigs: 3})}s`;
 
         var mineBarInterval = setInterval(() => {
             mineBar.value += 0.05;
@@ -100,9 +106,10 @@ const mine = () => {
             clearInterval(mineBarInterval);
             var resourceMined = 0;
             resourceMined = Math.ceil(Math.random() * 3);
-            console.log(resourceMined);
-            Game.Player.inventory[mineOption.value] += resourceMined;
+            Game.Player.inventory[_mineOption] += resourceMined;
             Game.Player.mining = false;
+            mineLabel.innerHTML = ``;
+            mineAlert.innerHTML = `+${resourceMined} ${symbols[_mineOption]} | ${names[_mineOption]}`;
         }, mineTime * 1000)
 
         mineBar.max = mineTime;
