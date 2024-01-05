@@ -20,8 +20,18 @@ class game {
         this.Player.inventory.oil = 0;
         this.Player.inventory.moon_cheese = 0;
         this.Player.inventory.moon_cheese_fuel = 0;
+        this.Player.inventory.technology = 0;
 
         this.Player.mining = false;
+
+        this.Player.unlocks = [
+            {"object" : "stone", "level" : 1, "unlocked" : true},
+            {"object" : "iron", "level" : 2, "unlocked" : false},
+            {"object" : "silver", "level" : 5, "unlocked" : false},
+            {"object" : "gold", "level" : 10, "unlocked" : false},
+            {"object" : "titanium", "level" : 15, "unlocked" : false},
+            {"object" : "moon_cheese", "level" : 25, "unlocked" : false}
+        ]
     }
 
     render = (game) => {
@@ -34,6 +44,8 @@ class game {
         const playerCreditsDOM = document.querySelector("#player-credits");
 
         const inventoryDOM = document.querySelector("#inventory");
+
+        const mineSelectDOM = document.querySelector("#mine-select");
 
         playerNameDOM.innerHTML = game.Player.name;
         playerLevelDOM.innerHTML = `Level: ${numberformat.format(game.Player.level, {sigfigs: 3})}`;
@@ -70,11 +82,32 @@ class game {
         }
 
 
+        for (const child of mineSelectDOM.children){
+            for (var unlock in game.Player.unlocks){
+                if(game.Player.unlocks[unlock].object === child.value){
+                    if(game.Player.unlocks[unlock].unlocked === true || game.Player.level >= game.Player.unlocks[unlock].level){
+                        game.Player.unlocks[unlock].unlocked = true;
+                        child.style.display = "block";
+                    }else{
+                        child.style.display = "none";
+                    }
+                }
+            }
+        }
+
         return true;
     }
 
     update = (game) => {
-        const expNeeded = getLevelUp(game.Player);
+        var expNeeded = getLevelUp(game.Player);
+
+        if (game.Player.exp >= expNeeded) {
+            game.Player.exp = 0;
+            game.Player.level += 1;
+            expNeeded = getLevelUp(game.Player);
+        }
+
+        this.render(game);
 
         return true;
     }
@@ -108,8 +141,10 @@ const mine = () => {
             resourceMined = Math.ceil(Math.random() * 3);
             Game.Player.inventory[_mineOption] += resourceMined;
             Game.Player.mining = false;
+            Game.Player.exp += expValues[_mineOption];
             mineLabel.innerHTML = ``;
             mineAlert.innerHTML = `+${resourceMined} ${symbols[_mineOption]} | ${names[_mineOption]}`;
+            mineAlert.style.opacity = 1;
         }, mineTime * 1000)
 
         mineBar.max = mineTime;
@@ -120,5 +155,5 @@ const mine = () => {
 
 
 const renderLoop = setInterval(() => {
-    Game.render(Game);
+    Game.update(Game);
 },200)
