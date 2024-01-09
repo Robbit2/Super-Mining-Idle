@@ -15,12 +15,17 @@ const symbols = {
 const names = {
     "stone" : "Stone",
     "iron" : "Iron",
+    "iron_bar" : "Iron Bar",
     "silver" : "Silver",
+    "silver_bar" : "Silver Bar",
     "gold" : "Gold",
+    "gold_bar" : "Gold Bar",
     "titanium" : "Titanium",
+    "titanium_bar" : "Titanium Bar",
     "oil" : "Oil",
     "technology" : "Technology",
     "moon_cheese" : "Moon Cheese",
+    "moon_cheese_bar" : "Moon Cheese Bar",
     "moon_cheese_fuel" : "Moon Cheese Fuel"
 };
 
@@ -47,3 +52,15 @@ const expValues = {
     "moon_cheese" : 45,
     "moon_cheese_fuel" : 50
 }
+
+const smelteryRecipes = {
+    "stone" : null,
+    "iron" : "iron_bar",
+    "silver" : "silver_bar",
+    "gold" : "gold_bar",
+    "titanium" : "titanium_bar",
+    "oil" : null,
+    "technology" : null,
+    "moon_cheese" : "moon_cheese_bar",
+    "moon_cheese_fuel" : null
+};

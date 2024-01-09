@@ -72,8 +72,10 @@ button.square {
 }
 
 .mine-alert {
-    background:lightgrey;
+    border:1px dashed black;
     padding:2px 8px 2px 8px;
     border-radius: 50px;
     opacity:0;
 }
+
+.smeltery-gui {display:none;}
