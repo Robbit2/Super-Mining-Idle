@@ -5,7 +5,7 @@ class game {
     constructor(){
         this.Player = {}
         this.Player.name = generateName();
-        this.Player.level = 1;
+        this.Player.level = 3;
         this.Player.exp = 0;
         
         this.Player.money = 0;
@@ -24,6 +24,7 @@ class game {
         this.Player.inventory.technology = 0;
 
         this.Player.mining = false;
+        this.Player.smelting = false;
 
         this.Player.unlocks = [
             {"object" : "stone", "level" : 1, "unlocked" : true},
@@ -178,7 +179,7 @@ const mine = () => {
         // clone mineOption so players can't cheese the mining process
         const _mineOption = JSON.parse(JSON.stringify(mineOption.value));
 
-        mineLabel.innerHTML = `${numberformat.format(mineTime, {sigfigs: 3})}s`;
+        mineLabel.innerHTML = `${mineTime}s`;
 
         // update progress bar
         var mineBarInterval = setInterval(() => {
@@ -205,6 +206,19 @@ const mine = () => {
 }
 
 const smelt = () => {
+    if(!Game.Player.smelting){
+        Game.Player.smelting = true;
+
+        const smelterySelectDOM = document.querySelector("#smeltery-select");
+        const smelteryRecipeDOM = document.querySelector("#smeltery-recipe");
+
+        if(Game.Player.inventory[smelterySelectDOM.value] > 0){
+            alert(`smelt ${smelterySelectDOM.value}`);
+        }else{
+            alert(`not enough ${smelterySelectDOM.value}`);
+        }
+    }
+    Game.Player.smelting = false;
     return true;
 }
 
@@ -224,6 +238,7 @@ const saveLoop = accurateTimer(() => {
 
 
 const tryLoad = () => {
+    return;
     try{
         Game.Player = Game.load(Game);
         console.log("Game save loaded successfully");

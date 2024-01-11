@@ -24,7 +24,8 @@ const generateName = () => {
 
 const getLevelUp = (player) => {
     var lvl = player.level + 1;
-    var expEquation = (500 * (lvl ** 2)) - (500 * lvl);
+    // exponential leveling curve
+    var expEquation = (100 * (lvl ** 2)) - (100 * lvl);
     var expNeeded = expEquation;
 
     return expNeeded;

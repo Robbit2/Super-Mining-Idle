@@ -30,14 +30,14 @@ const names = {
 };
 
 const mineTimes = {
-    "stone" : 1,
-    "iron" : 5,
-    "silver" : 10,
-    "gold" : 20,
-    "titanium" : 30,
+    "stone" : .5,
+    "iron" : 1,
+    "silver" : 2.5,
+    "gold" : 5,
+    "titanium" : 10,
     "oil" : 0,
     "technology" : 0,
-    "moon_cheese" : 45,
+    "moon_cheese" : 20,
     "moon_cheese_fuel" : 0
 };
 
