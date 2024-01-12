@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body onload="tryLoad()">
+    <div id="particles"></div>
     <aside class="left">
         <!--Basic Player Stats-->
         <section>
@@ -26,12 +27,17 @@
             <b>Inventory</b><br><br>
             <span id="inventory-stone">∅0</span>
             <span id="inventory-iron">⋒0</span>
+            <span id="inventory-iron_bar">⋒0</span>
             <span id="inventory-silver">〥0</span>
+            <span id="inventory-silver_bar">〥0</span>
             <span id="inventory-gold">♀0</span>
+            <span id="inventory-gold_bar">♀0</span>
             <span id="inventory-titanium">∐0</span>
+            <span id="inventory-titanium_bar">∐0</span>
             <span id="inventory-oil">♨0</span>
             <span id="inventory-technology">〄0</span>
             <span id="inventory-moon-cheese">∆0</span>
+            <span id="inventory-moon-cheese_bar">∆0</span>
             <span id="inventory-moon-cheese-fuel">⊵0</span>
         </section>
     </aside>
@@ -64,13 +70,14 @@
                 </select><br><br>
                 <span id="smeltery-recipe">Ore -> bar</span><br><br>
                 <button id="smeltery-button" onclick="smelt()">Smelt</button>
-                <meter id="smeltery-progress-bar"></meter><label for="smeltery-progress-bar" id="smeltery-progress-label"></label>
+                <meter id="smeltery-progress-bar" min="0" max="100" value="0"></meter><label for="smeltery-progress-bar" id="smeltery-progress-label"></label>
             </section>
         </section>
         <section class="two"></section>
         <section class="three"></section>
         <section class="four"></section>
     </main>
+    <script src="scripts/cacheDOM.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script src="https://cdn.rawgit.com/erosson/swarm-numberformat/v0.4.0/dist/swarm-numberformat.min.js"></script>
     <script src="scripts/refs.js"></script>

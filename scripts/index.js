@@ -5,7 +5,7 @@ class game {
     constructor(){
         this.Player = {}
         this.Player.name = generateName();
-        this.Player.level = 3;
+        this.Player.level = 5;
         this.Player.exp = 0;
         
         this.Player.money = 0;
@@ -15,11 +15,16 @@ class game {
 
         this.Player.inventory.stone = 0;
         this.Player.inventory.iron = 0;
+        this.Player.inventory.iron_bar = 0;
         this.Player.inventory.silver = 0;
+        this.Player.inventory.silver_bar = 0;
         this.Player.inventory.gold = 0;
+        this.Player.inventory.gold_bar = 0;
         this.Player.inventory.titanium = 0;
+        this.Player.inventory.titanium_bar = 0;
         this.Player.inventory.oil = 0;
         this.Player.inventory.moon_cheese = 0;
+        this.Player.inventory.moon_cheese_bar = 0;
         this.Player.inventory.moon_cheese_fuel = 0;
         this.Player.inventory.technology = 0;
 
@@ -37,22 +42,6 @@ class game {
     }
 
     render = (game) => {
-        // variables
-        const playerNameDOM = document.querySelector("#player-name");
-        const playerLevelDOM = document.querySelector("#player-level");
-        const playerExpNeededBarDOM = document.querySelector("#player-lvl-bar");
-        const playerExpNeededDOM = document.querySelector("#player-lvl-txt");
-        
-        const playerMoneyDOM = document.querySelector("#player-dollars");
-        const playerCreditsDOM = document.querySelector("#player-credits");
-
-        const inventoryDOM = document.querySelector("#inventory");
-
-        const mineSelectDOM = document.querySelector("#mine-select");
-
-        const smelterySelectDOM = document.querySelector("#smeltery-select");
-        const smelteryRecipeDOM = document.querySelector("#smeltery-recipe");
-
         // update basic stats
         playerNameDOM.innerHTML = game.Player.name;
         playerLevelDOM.innerHTML = `Level: ${numberformat.format(game.Player.level, {sigfigs: 3})}`;
@@ -125,7 +114,7 @@ class game {
             }
         }
 
-        smelteryRecipeDOM.innerHTML = `[ ${symbols[smelterySelectDOM.value]} | ${names[smelterySelectDOM.value]} ] x1  ->  [ ${symbols[smelterySelectDOM.value]} | ${names[smelteryRecipes[smelterySelectDOM.value]]} ] x1`;
+        smelteryRecipeDOM.innerHTML = `${symbols[smelterySelectDOM.value]} | ${names[smelterySelectDOM.value]} x1  ->  ${symbols[smelterySelectDOM.value]} | ${names[smelteryRecipes[smelterySelectDOM.value]]} x1`;
 
         return true;
     }
@@ -170,12 +159,7 @@ const mine = () => {
     if(!Game.Player.mining){
         Game.Player.mining = true;
         // variables
-        const mineOption = document.querySelector(".mine-select");
-        const mineBar = document.querySelector("#mine-progress-bar");
         const mineTime = mineTimes[mineOption.value];
-        const mineLabel = document.querySelector("#mine-progress-label");
-        const mineAlert = document.querySelector(".mine-alert");
-
         // clone mineOption so players can't cheese the mining process
         const _mineOption = JSON.parse(JSON.stringify(mineOption.value));
 
@@ -207,18 +191,34 @@ const mine = () => {
 
 const smelt = () => {
     if(!Game.Player.smelting){
-        Game.Player.smelting = true;
+        const _smeltOption = smelterySelectDOM.value;
+        const smeltTime = (mineTimes[_smeltOption] * 2);
 
-        const smelterySelectDOM = document.querySelector("#smeltery-select");
-        const smelteryRecipeDOM = document.querySelector("#smeltery-recipe");
+        if(Game.Player.inventory[_smeltOption] > 0){
+            smeltBar.max = smeltTime;
 
-        if(Game.Player.inventory[smelterySelectDOM.value] > 0){
-            alert(`smelt ${smelterySelectDOM.value}`);
+            smeltLabel.innerHTML = `${smeltTime}s`;
+
+            Game.Player.smelting = true;
+            var smeltBarInterval = setInterval(() => {
+                smeltBar.value += 0.05;
+            },50);
+
+            var smeltTimer = accurateTimer(() => {
+                smeltTimer.cancel();
+                smeltBar.value = 0;
+                clearInterval(smeltBarInterval);
+                let _amt = 1;
+                Game.Player.inventory[smelteryRecipes[_smeltOption]] += _amt;
+                Game.Player.inventory[_smeltOption] -= _amt;
+                Game.Player.exp += expValues[_smeltOption] * 2;
+                Game.Player.smelting = false;
+                smeltLabel.innerHTML = ``;
+            }, smeltTime * 1000);  
         }else{
             alert(`not enough ${smelterySelectDOM.value}`);
-        }
+        }  
     }
-    Game.Player.smelting = false;
     return true;
 }
 

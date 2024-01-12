@@ -3,12 +3,17 @@ const symbols = {
     "credits" : "Ξ",
     "stone" : "∅",
     "iron" : "⋒",
+    "iron_bar" : "⋒",
     "silver" : "〥",
+    "silver_bar" : "〥",
     "gold" : "♀",
+    "gold_bar" : "♀",
     "titanium" : "∐",
+    "titanium_bar" : "∐",
     "oil" : "♨",
     "technology" : "〄",
     "moon_cheese" : "∆",
+    "moon_cheese_bar" : "∆",
     "moon_cheese_fuel" : "⊵"
 };
 
@@ -32,12 +37,12 @@ const names = {
 const mineTimes = {
     "stone" : .5,
     "iron" : 1,
-    "silver" : 2.5,
-    "gold" : 5,
-    "titanium" : 10,
+    "silver" : 2,
+    "gold" : 4,
+    "titanium" : 7,
     "oil" : 0,
     "technology" : 0,
-    "moon_cheese" : 20,
+    "moon_cheese" : 10,
     "moon_cheese_fuel" : 0
 };
 
@@ -49,8 +54,8 @@ const expValues = {
     "titanium" : 30,
     "oil" : 15,
     "technology" : 25,
-    "moon_cheese" : 45,
-    "moon_cheese_fuel" : 50
+    "moon_cheese" : 250,
+    "moon_cheese_fuel" : 500
 }
 
 const smelteryRecipes = {
