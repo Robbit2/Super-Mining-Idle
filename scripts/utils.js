@@ -65,4 +65,18 @@ const accurateTimer = (fn, time = 1000) => {
     // the cancel function is returned so it can be called outside
     // accurateTimer.
     return { cancel };
-  };
+};
+
+const oreNameGenerator = () => {
+    const endings = ["ite","ium"];
+    const begin = ["Ha","Fola","Xi","Pho"];
+    const middle = ["lt","rt","whyr"];
+
+    let name = "";
+
+    name += Random.randList(begin);
+    name += Random.randList(middle);
+    name += Random.randList(endings);
+
+    return name;
+};
