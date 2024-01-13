@@ -1,11 +1,12 @@
 const LS = localStorage;
 const easytimer = window.easytimer;
+const version = "0.2.1-alpha";
 
 class game {
     constructor(){
         this.Player = {}
         this.Player.name = generateName();
-        this.Player.level = 5;
+        this.Player.level = 1;
         this.Player.exp = 0;
         
         this.Player.money = 0;
@@ -43,8 +44,6 @@ class game {
             {"object" : "titanium", "level" : 15, "unlocked" : false},
             {"object" : "moon_cheese", "level" : 25, "unlocked" : false}
         ];
-
-        this.Player.recipes = {};
     }
 
     render = (game) => {
@@ -123,11 +122,27 @@ class game {
         let recipeDOMstr = "";
         for (const recipe in recipes){
             if(game.Player.level >= recipes[recipe].level){
-                recipeDOMstr += `<div class="recipe" data-recipe="${recipe}"><span>${recipes[recipe].symbol} ${recipes[recipe].name}</span><br><br><button>Craft</button></div>`;
+                let tippyContentStr = "";
+                for(let input in recipes[recipe].inputs){
+                    tippyContentStr += ` ${symbols[input]} | ${names[input]} x${recipes[recipe].inputs[input]} `;
+                }
+                tippyContentStr += "<br> -> <br>";
+                for(let output in recipes[recipe].outputs){
+                    tippyContentStr += ` ${recipes[recipe].symbol} | ${recipes[recipe].name} x${recipes[recipe].outputs[output]} `;
+                }
+                recipeDOMstr += `<div class="recipe" id="recipe" data-recipe="${recipe}" data-tippy-content="${tippyContentStr}"><span>${recipes[recipe].symbol} ${recipes[recipe].name}</span><br><br><button>Craft</button></div>`;
             }
         }
-        if(craftingRecipesDOM.innerHTML != recipeDOMstr){
+        if(craftingRecipesDOM.dataset.recipeDOM != recipeDOMstr){
+            craftingRecipesDOM.dataset.recipeDOM = recipeDOMstr;
             craftingRecipesDOM.innerHTML = recipeDOMstr;
+            console.log("yes")
+            let instance = tippy(document.querySelectorAll("#recipe"),
+            {
+                interactive:false,
+                allowHTML:true,
+                appendTo:document.querySelector(".crafting-gui")
+            });
         }
 
         smelteryRecipeDOM.innerHTML = `${symbols[smelterySelectDOM.value]} | ${names[smelterySelectDOM.value]} x1  ->  ${symbols[smelterySelectDOM.value]} | ${names[smelteryRecipes[smelterySelectDOM.value]]} x1`;
@@ -157,13 +172,64 @@ class game {
         if(LS.gameSave != null && LS.gameSave != "undefined" && LS.gameSave != ""){
             return JSON.parse(LS.gameSave);
             var _game = JSON.parse(LS.gameSave);
-            for (i in game.Player.inventory){
+            console.log(_game);
+            for (let i in game.Player.inventory){
+                console.log(i);
                 if(_game.Player.inventory[i] == null){
                     _game.Player.inventory[i] = game.Player.inventory[i];
                 }
             }
+
+            for(let i in game.Player){
+
+            }
             return _game;
         }
+    }
+
+    reset = (game) => {
+        game.Player = {}
+        game.Player.name = generateName();
+        game.Player.level = 1;
+        game.Player.exp = 0;
+        
+        game.Player.money = 0;
+        game.Player.credits = 0;
+
+        game.Player.inventory = {};
+
+        game.Player.inventory.stone = 0;
+        game.Player.inventory.iron = 0;
+        game.Player.inventory.iron_bar = 0;
+        game.Player.inventory.refined_iron = 0;
+        game.Player.inventory.silver = 0;
+        game.Player.inventory.silver_bar = 0;
+        game.Player.inventory.refined_silver = 0;
+        game.Player.inventory.gold = 0;
+        game.Player.inventory.gold_bar = 0;
+        game.Player.inventory.refined_gold = 0;
+        game.Player.inventory.titanium = 0;
+        game.Player.inventory.titanium_bar = 0;
+        game.Player.inventory.refined_titanium = 0;
+        game.Player.inventory.oil = 0;
+        game.Player.inventory.moon_cheese = 0;
+        game.Player.inventory.moon_cheese_bar = 0;
+        game.Player.inventory.moon_cheese_fuel = 0;
+        game.Player.inventory.technology = 0;
+
+        game.Player.mining = false;
+        game.Player.smelting = false;
+
+        game.Player.unlocks = [
+            {"object" : "stone", "level" : 1, "unlocked" : true},
+            {"object" : "iron", "level" : 2, "unlocked" : false},
+            {"object" : "silver", "level" : 5, "unlocked" : false},
+            {"object" : "gold", "level" : 10, "unlocked" : false},
+            {"object" : "titanium", "level" : 15, "unlocked" : false},
+            {"object" : "moon_cheese", "level" : 25, "unlocked" : false}
+        ];
+
+        return true;
     }
 }
 
@@ -245,20 +311,20 @@ const renderLoop = setInterval(() => {
 
 const saveLoop = accurateTimer(() => {
     try{
-        //Game = Game.save(Game);
-        console.log("game saved successfully");
+        Game.save(Game);
+        //console.log("game saved successfully");
     }catch{
-        console.error("game did not save")
+        //console.error("game did not save")
     }
 },1000)
 
 
 const tryLoad = () => {
-    return;
     try{
         Game.Player = Game.load(Game);
-        console.log("Game save loaded successfully");
-    }catch{
+        console.log("Game loaded successfully");
+    }catch(e){
         console.error("Game save not loaded");
+        console.warn(e);
     }
 };
