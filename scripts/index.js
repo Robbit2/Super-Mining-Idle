@@ -5,7 +5,7 @@ class game {
     constructor(){
         this.Player = {}
         this.Player.name = generateName();
-        this.Player.level = 5;
+        this.Player.level = 1;
         this.Player.exp = 0;
         
         this.Player.money = 0;
