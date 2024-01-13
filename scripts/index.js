@@ -5,7 +5,7 @@ class game {
     constructor(){
         this.Player = {}
         this.Player.name = generateName();
-        this.Player.level = 1;
+        this.Player.level = 5;
         this.Player.exp = 0;
         
         this.Player.money = 0;
@@ -16,12 +16,16 @@ class game {
         this.Player.inventory.stone = 0;
         this.Player.inventory.iron = 0;
         this.Player.inventory.iron_bar = 0;
+        this.Player.inventory.refined_iron = 0;
         this.Player.inventory.silver = 0;
         this.Player.inventory.silver_bar = 0;
+        this.Player.inventory.refined_silver = 0;
         this.Player.inventory.gold = 0;
         this.Player.inventory.gold_bar = 0;
+        this.Player.inventory.refined_gold = 0;
         this.Player.inventory.titanium = 0;
         this.Player.inventory.titanium_bar = 0;
+        this.Player.inventory.refined_titanium = 0;
         this.Player.inventory.oil = 0;
         this.Player.inventory.moon_cheese = 0;
         this.Player.inventory.moon_cheese_bar = 0;
@@ -38,7 +42,9 @@ class game {
             {"object" : "gold", "level" : 10, "unlocked" : false},
             {"object" : "titanium", "level" : 15, "unlocked" : false},
             {"object" : "moon_cheese", "level" : 25, "unlocked" : false}
-        ]
+        ];
+
+        this.Player.recipes = {};
     }
 
     render = (game) => {
@@ -112,6 +118,16 @@ class game {
                     }
                 }
             }
+        }
+
+        let recipeDOMstr = "";
+        for (const recipe in recipes){
+            if(game.Player.level >= recipes[recipe].level){
+                recipeDOMstr += `<div class="recipe" data-recipe="${recipe}"><span>${recipes[recipe].symbol} ${recipes[recipe].name}</span><br><br><button>Craft</button></div>`;
+            }
+        }
+        if(craftingRecipesDOM.innerHTML != recipeDOMstr){
+            craftingRecipesDOM.innerHTML = recipeDOMstr;
         }
 
         smelteryRecipeDOM.innerHTML = `${symbols[smelterySelectDOM.value]} | ${names[smelterySelectDOM.value]} x1  ->  ${symbols[smelterySelectDOM.value]} | ${names[smelteryRecipes[smelterySelectDOM.value]]} x1`;

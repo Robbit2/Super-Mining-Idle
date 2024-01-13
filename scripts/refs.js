@@ -1,3 +1,13 @@
+class Recipe {
+    constructor({name, level, inputs, outputs, symbol}){
+        this.name = name;
+        this.level = level;
+        this.inputs = inputs;
+        this.outputs = outputs;
+        this.symbol = symbol;
+    }
+}
+
 const symbols = {
     "money" : "$",
     "credits" : "Ξ",
@@ -69,3 +79,9 @@ const smelteryRecipes = {
     "moon_cheese" : "moon_cheese_bar",
     "moon_cheese_fuel" : null
 };
+
+const recipes = {
+    "refined_iron" : new Recipe({"name" : "Refined Iron","inputs" : {"iron_bar" : 2},"outputs" : {"refined_iron" : 1},"level" : 5, "symbol": "⋒"}),
+    "refined_silver" : new Recipe({"name" : "Refined Silver","inputs" : {"silver_bar" : 2},"outputs" : {"refined_silver" : 1},"level" : 5, "symbol": "〥"}),
+    "refined_gold" : new Recipe({"name" : "Refined Gold","inputs" : {"gold_bar" : 2},"outputs" : {"refined_gold" : 1},"level" : 6, "symbol": "♀"})
+}

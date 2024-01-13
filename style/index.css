@@ -89,3 +89,23 @@ button.square {
     z-index:100;
     pointer-events: none;
 }
+
+#crafting-recipes {
+    height:250px;
+    border:1px solid black;
+    overflow-y:scroll;
+    padding:4px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: start;
+}
+
+.recipe {
+    width:22.5%;
+    margin:2px;
+    border:1px solid black;
+    aspect-ratio: 1/1;
+    padding:2px;
+}

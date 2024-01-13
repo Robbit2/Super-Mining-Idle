@@ -11,6 +11,9 @@ const smelteryRecipeDOM = document.querySelector("#smeltery-recipe");
 const smeltBar = document.querySelector("#smeltery-progress-bar");
 const smeltLabel = document.querySelector("#smeltery-progress-label");
 
+// crafting dom items
+const craftingRecipesDOM = document.querySelector("#crafting-recipes");
+
 // player dom items
 const playerNameDOM = document.querySelector("#player-name");
 const playerLevelDOM = document.querySelector("#player-level");

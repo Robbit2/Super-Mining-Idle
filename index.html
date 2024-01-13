@@ -28,12 +28,16 @@
             <span id="inventory-stone">∅0</span>
             <span id="inventory-iron">⋒0</span>
             <span id="inventory-iron_bar">⋒0</span>
+            <span id="inventory-refined_iron">⋒0</span>
             <span id="inventory-silver">〥0</span>
             <span id="inventory-silver_bar">〥0</span>
+            <span id="inventory-refined_silver">〥0</span>
             <span id="inventory-gold">♀0</span>
             <span id="inventory-gold_bar">♀0</span>
+            <span id="inventory-refined_gold">♀0</span>
             <span id="inventory-titanium">∐0</span>
             <span id="inventory-titanium_bar">∐0</span>
+            <span id="inventory-refined_titanium">∐0</span>
             <span id="inventory-oil">♨0</span>
             <span id="inventory-technology">〄0</span>
             <span id="inventory-moon-cheese">∆0</span>
@@ -72,11 +76,20 @@
                 <button id="smeltery-button" onclick="smelt()">Smelt</button>
                 <meter id="smeltery-progress-bar" min="0" max="100" value="0"></meter><label for="smeltery-progress-bar" id="smeltery-progress-label"></label>
             </section>
+            <section class="crafting-gui">
+                <span>CRAFTING</span><br><br>
+                <u>Recipes</u>
+                <div id="crafting-recipes">
+                    <!--<div class="recipe" data-recipe="refined_iron"><span>⋒ Refined Iron</span><br><br><button>Craft</button></div>-->
+                </div>
+            </section>
         </section>
         <section class="two"></section>
         <section class="three"></section>
         <section class="four"></section>
     </main>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
     <script src="scripts/cacheDOM.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script src="https://cdn.rawgit.com/erosson/swarm-numberformat/v0.4.0/dist/swarm-numberformat.min.js"></script>
